@@ -1,0 +1,13 @@
+{
+  "name": "purescript-webpack-example",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Example using PureScript with webpack",
+  "license": "MIT",
+  "repository": "ethul/purescript-webpack-example",
+  "author": {
+    "name": "Eric Thul",
+    "email": "thul.eric@gmail.com"
+  },
+  "files": [ ]
+}
