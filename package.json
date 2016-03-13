@@ -9,5 +9,19 @@
     "name": "Eric Thul",
     "email": "thul.eric@gmail.com"
   },
-  "files": [ ]
+  "files": [],
+  "scripts": {
+    "build": "webpack --progress --colors --bail",
+    "build:watch": "webpack --progress --colors --watch",
+    "build:watch:debug": "DEBUG=purescript-webpack-plugin,purs-loader webpack --progress --colors --watch",
+    "start": "node bundle.js"
+  },
+  "dependencies": {
+    "purescript": "^0.8.2",
+    "purescript-psa": "^0.3.5",
+    "purescript-webpack-plugin": "^0.2.0-beta.6",
+    "purs-loader": "^0.6.0-beta.5",
+    "source-map-loader": "^0.1.5",
+    "webpack": "^1.12.14"
+  }
 }
