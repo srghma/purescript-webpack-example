@@ -11,17 +11,20 @@
   },
   "files": [],
   "scripts": {
-    "build": "webpack --progress --colors --bail",
-    "build:watch": "webpack --progress --colors --watch",
-    "build:watch:debug": "DEBUG=purescript-webpack-plugin,purs-loader webpack --progress --colors --watch",
+    "webpack": "webpack --progress --colors --bail",
+    "webpack:watch": "webpack --progress --colors --watch",
+    "webpack:watch:debug": "DEBUG=purescript-webpack-plugin,purs-loader webpack --progress --colors --watch",
+    "webpack:server": "webpack-dev-server --progress --colors --inline --hot",
+    "webpack:server:debug": "DEBUG=purescript-webpack-plugin,purs-loader webpack-dev-server --progress --colors --inline --hot",
     "start": "node bundle.js"
   },
   "dependencies": {
     "purescript": "^0.8.2",
     "purescript-psa": "^0.3.5",
-    "purescript-webpack-plugin": "^0.2.0",
+    "purescript-webpack-plugin": "^0.3.0",
     "purs-loader": "^0.6.0",
     "source-map-loader": "^0.1.5",
-    "webpack": "^1.12.14"
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
   }
 }

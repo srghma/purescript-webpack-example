@@ -7,7 +7,18 @@ bower install
 
 npm install
 
-npm run build
+npm run webpack
 
 npm start
+```
+
+To test this in the browser with the webpack-dev-server.
+
+``bash
+bower install
+
+npm install
+
+# http://localhost:4008/
+npm run webpack:server
 ```
