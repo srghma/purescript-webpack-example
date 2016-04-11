@@ -25,6 +25,10 @@ var config
   = { entry: './src/entry'
     , debug: true
     , devtool: 'source-map'
+    , devServer: { contentBase: '.'
+                 , port: 4008
+                 , stats: 'errors-only'
+                 }
     , output: { path: __dirname
               , pathinfo: true
               , filename: 'bundle.js'
