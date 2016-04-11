@@ -14,7 +14,7 @@ npm start
 
 To test this in the browser with the webpack-dev-server.
 
-``bash
+```bash
 bower install
 
 npm install
