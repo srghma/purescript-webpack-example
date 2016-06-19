@@ -1,14 +1,5 @@
 'use strict';
 
-var src = ['bower_components/purescript-*/src/**/*.purs', 'src/Example/**/*.purs'];
-
-var ffi = ['bower_components/purescript-*/src/**/*.js', 'src/Example/**/*.js'];
-
-var modulesDirectories = [
-  'node_modules',
-  'bower_components'
-];
-
 var config
   = { entry: './src/entry'
     , debug: true
@@ -23,11 +14,11 @@ var config
               }
     , module: { loaders: [ { test: /\.purs$/
                            , loader: 'purs-loader'
-                           , query: { src: src
-                                    , ffi: ffi
+                           , query: { src: [ 'bower_components/purescript-*/src/**/*.purs', 'src/Example/**/*.purs' ]
                                     , bundle: false
                                     , psc: 'psa'
                                     , pscArgs: { sourceMaps: true }
+                                    , pscIde: true
                                     }
                            }
                          , { test: /\.js$/
@@ -36,7 +27,7 @@ var config
                            }
                          ]
               }
-    , resolve: { modulesDirectories: modulesDirectories
+    , resolve: { modulesDirectories: [ 'node_modules', 'bower_components' ]
                , extensions: [ '', '.purs', '.js']
                }
     }

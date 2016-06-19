@@ -1,6 +1,6 @@
 module Example.Foo where
 
-import Prelude ((++))
+import Prelude ((<>))
 
 import Example.Foo.Bar as B
 
@@ -11,7 +11,7 @@ bar :: String
 bar = "B"
 
 jaz :: String
-jaz = "E" ++ B.jar ++ B.jee
+jaz = "E" <> B.jar <> B.jee
 
 foreign import foot :: String
 
