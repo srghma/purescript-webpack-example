@@ -1,4 +1,4 @@
-module Foo.Baz (baz) where
+module Example.Foo.Baz (baz) where
 
 baz :: String
 baz = "d"

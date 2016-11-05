@@ -1,7 +1,7 @@
 'use strict';
 
 var config
-  = { entry: './src/entry'
+  = { entry: './src/Entry.purs'
     , debug: true
     , devtool: 'source-map'
     , devServer: { contentBase: '.'
@@ -14,7 +14,7 @@ var config
               }
     , module: { loaders: [ { test: /\.purs$/
                            , loader: 'purs-loader'
-                           , query: { src: [ 'bower_components/purescript-*/src/**/*.purs', 'src/Example/**/*.purs' ]
+                           , query: { src: [ 'bower_components/purescript-*/src/**/*.purs', 'src/**/*.purs' ]
                                     , bundle: false
                                     , psc: 'psa'
                                     , pscArgs: { sourceMaps: true }

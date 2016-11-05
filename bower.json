@@ -2,6 +2,6 @@
   "name": "purescript-webpack-example",
   "private": true,
   "dependencies": {
-    "purescript-prelude": "~1.0.1"
+    "purescript-prelude": "^2.1.0"
   }
 }
