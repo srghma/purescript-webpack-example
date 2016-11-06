@@ -2,6 +2,7 @@
   "name": "purescript-webpack-example",
   "private": true,
   "dependencies": {
-    "purescript-prelude": "^2.1.0"
+    "purescript-prelude": "^2.1.0",
+    "purescript-eff": "^2.0.0"
   }
 }
