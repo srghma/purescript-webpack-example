@@ -1,28 +1,31 @@
 module Example (example) where
 
-import Prelude (Unit, ($), bind, unit)
+import Prelude (Unit, ($), (>>=), bind, unit, void)
 
 import Control.Monad.Eff (Eff)
+import Control.Monad.Eff.Console (log)
 import Control.Monad.Eff.Unsafe (unsafePerformEff)
 
 import DOM.Node.Types (Element)
 
 import React (createElement)
 
-import ReactDOM (render)
+import ReactDOM (render, renderToString)
 
 import Example.App (app)
 
 example :: Unit
 example = unsafePerformEff $ do
-  el <- getElementById "app"
-
   let appEl = createElement app unit []
 
-  render appEl el
+  if isServerSide
+     then void (log (renderToString appEl))
+     else void (getElementById "app" >>= render appEl)
 
   hot
 
-foreign import hot :: forall eff. Eff eff Unit
+foreign import isServerSide :: Boolean
 
 foreign import getElementById :: forall eff. String -> Eff eff Element
+
+foreign import hot :: forall eff. Eff eff Unit
