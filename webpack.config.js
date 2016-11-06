@@ -1,7 +1,7 @@
 'use strict';
 
 var config
-  = { entry: './src/Entry.purs'
+  = { entry: './src/Example.purs'
     , debug: true
     , devtool: 'source-map'
     , devServer: { contentBase: '.'
@@ -18,7 +18,7 @@ var config
                                     , bundle: false
                                     , psc: 'psa'
                                     , pscArgs: { sourceMaps: true }
-                                    , pscIde: true
+                                    , pscIde: false
                                     }
                            }
                          , { test: /\.js$/
