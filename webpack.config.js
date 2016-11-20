@@ -8,7 +8,7 @@ module.exports = {
   devServer: {
     contentBase: '.',
     port: 4008,
-    stats: { colors: true }
+    stats: 'errors-only'
   },
 
   entry: './src/Example.purs',

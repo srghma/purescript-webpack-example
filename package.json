@@ -16,13 +16,14 @@
     "webpack:watch": "webpack --progress --watch",
     "webpack:server": "webpack-dev-server --progress --inline --hot",
     "webpack:server:debug": "DEBUG=purs-loader webpack-dev-server --progress --inline --hot",
-    "psc:server": "psc-ide-server --debug",
+    "psc": "psc 'bower_components/purescript-*/src/**/*.purs' 'src/**/*.purs'",
+    "psc-bundle": "psc-bundle output/**/*.js",
     "start": "node bundle.js"
   },
   "dependencies": {
     "purescript": "^0.10.1",
     "purescript-psa": "^0.3.9",
-    "purs-loader": "2.1.0",
+    "purs-loader": "^2.1.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "webpack": "^1.12.14",

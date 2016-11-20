@@ -2097,9 +2097,9 @@ purescript-psa:
   version "0.3.9"
   resolved "https://registry.yarnpkg.com/purescript-psa/-/purescript-psa-0.3.9.tgz#a44fb866dc603c40b16bfb728dee719cfae10c22"
 
-purs-loader@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/purs-loader/-/purs-loader-2.1.0.tgz#05d06b9440b1ffac2ffba33bf680e062eb65fc3a"
+purs-loader:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/purs-loader/-/purs-loader-2.1.1.tgz#0873a7493e9da9dbe008154ff213bbc98cee59f2"
   dependencies:
     bluebird "^3.3.5"
     chalk "^1.1.3"
