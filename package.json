@@ -13,7 +13,7 @@
   "files": [],
   "scripts": {
     "webpack": "webpack --progress --bail",
-    "webpack:dll": "webpack --verbose --colors --display-error-details --config webpack-dll.config.js",
+    "webpack:dll": "webpack --verbose --colors --display-error-details --progress --config webpack-dll.config.js",
     "webpack:watch": "webpack --progress --watch",
     "webpack:server": "webpack-dev-server --progress --inline --hot",
     "webpack:server:debug": "DEBUG=purs-loader webpack-dev-server --progress --inline --hot",
@@ -26,7 +26,6 @@
     "purs-loader": "^2.1.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
-    "source-map-loader": "^0.1.5",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1",
     "wrappy": "^1.0.2"

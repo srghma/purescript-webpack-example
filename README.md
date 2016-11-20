@@ -6,7 +6,7 @@ configuration geared towards fast rebuilds.
 The main parts to the configuration are enabling `pscIde` in the
 `purs-loader` configuration, and using webpack's
 [DllPlugin](https://github.com/webpack/docs/wiki/list-of-plugins#dllplugin)
-to delegate to pre-build external modules.
+to delegate to pre-built external modules.
 
 To get the example up and running, please run the following commands.
 
