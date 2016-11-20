@@ -2,6 +2,10 @@
 
 Example project using PureScript with webpack.
 
+Additional examples:
+
+ - [Fast rebuilds](https://github.com/ethul/purescript-webpack-example/tree/fast-rebuilds)
+
 ```bash
 bower install
 
