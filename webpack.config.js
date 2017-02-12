@@ -25,10 +25,11 @@ module.exports = {
         test: /\.purs$/,
         loader: 'purs-loader',
         query: {
-          src: [ 'bower_components/purescript-*/src/**/*.purs', 'src/**/*.purs' ],
+          src: [ 'src/Example/**/*.purs' ],
           bundle: false,
           psc: 'psa',
-          pscIde: false
+          pscIde: false,
+          pscPackage: true
         }
       },
     ]

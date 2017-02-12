@@ -1,4 +1,5 @@
 .DS_Store
+.psc-package/
 npm-debug.log
 node_modules/
 bower_components/

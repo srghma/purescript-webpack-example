@@ -1,0 +1,10 @@
+{
+    "name": "purescript-webpack-example",
+    "set": "psc-0.10.5",
+    "source": "https://github.com/purescript/package-sets.git",
+    "depends": [
+        "react-dom",
+        "console",
+        "prelude"
+    ]
+}
