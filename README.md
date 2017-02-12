@@ -26,3 +26,4 @@ npm run webpack:server
 ## Additional examples
 
  - [Fast rebuilds](https://github.com/ethul/purescript-webpack-example/tree/fast-rebuilds)
+ - [Psc package](https://github.com/ethul/purescript-webpack-example/tree/psc-package)
