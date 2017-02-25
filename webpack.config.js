@@ -1,5 +1,11 @@
 'use strict';
 
+const path = require('path');
+
+const isWebpackDevServer = process.argv.filter(a => path.basename(a) === 'webpack-dev-server').length;
+
+const isWatch = process.argv.filter(a => a === '--watch').length
+
 module.exports = {
   debug: true,
 
@@ -28,6 +34,7 @@ module.exports = {
           src: [ 'bower_components/purescript-*/src/**/*.purs', 'src/**/*.purs' ],
           bundle: false,
           psc: 'psa',
+          watch: isWebpackDevServer || isWatch,
           pscIde: false
         }
       },
@@ -37,5 +44,13 @@ module.exports = {
   resolve: {
     modulesDirectories: [ 'node_modules', 'bower_components' ],
     extensions: [ '', '.purs', '.js']
-  }
+  },
+
+  plugins: isWebpackDevServer || !isWatch ? [] : [
+    function(){
+      this.plugin('done', function(stats){
+        process.stderr.write(stats.toString('errors-only'));
+      });
+    }
+  ]
 };
