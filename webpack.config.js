@@ -2,13 +2,23 @@
 
 const path = require('path');
 
+const webpack = require('webpack');
+
 const isWebpackDevServer = process.argv.filter(a => path.basename(a) === 'webpack-dev-server').length;
 
 const isWatch = process.argv.filter(a => a === '--watch').length
 
-module.exports = {
-  debug: true,
+const plugins =
+  isWebpackDevServer || !isWatch ? [] : [
+    function(){
+      this.plugin('done', function(stats){
+        process.stderr.write(stats.toString('errors-only'));
+      });
+    }
+  ]
+;
 
+module.exports = {
   devtool: 'eval-source-map',
 
   devServer: {
@@ -26,31 +36,36 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.purs$/,
-        loader: 'purs-loader',
-        query: {
-          src: [ 'bower_components/purescript-*/src/**/*.purs', 'src/**/*.purs' ],
-          bundle: false,
-          psc: 'psa',
-          watch: isWebpackDevServer || isWatch,
-          pscIde: false
-        }
+        use: [
+          {
+            loader: 'purs-loader',
+            options: {
+              src: [
+                'bower_components/purescript-*/src/**/*.purs',
+                'src/**/*.purs'
+              ],
+              bundle: false,
+              psc: 'psa',
+              watch: isWebpackDevServer || isWatch,
+              pscIde: false
+            }
+          }
+        ]
       },
     ]
   },
 
   resolve: {
-    modulesDirectories: [ 'node_modules', 'bower_components' ],
-    extensions: [ '', '.purs', '.js']
+    modules: [ 'node_modules', 'bower_components' ],
+    extensions: [ '.purs', '.js']
   },
 
-  plugins: isWebpackDevServer || !isWatch ? [] : [
-    function(){
-      this.plugin('done', function(stats){
-        process.stderr.write(stats.toString('errors-only'));
-      });
-    }
-  ]
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      debug: true
+    })
+  ].concat(plugins)
 };

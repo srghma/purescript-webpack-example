@@ -2,10 +2,9 @@
   "name": "purescript-webpack-example",
   "private": true,
   "dependencies": {
-    "purescript-console": "^2.0.0",
-    "purescript-eff": "^2.0.0",
-    "purescript-prelude": "^2.1.0",
-    "purescript-react": "^2.0.0",
-    "purescript-react-dom": "^2.0.0"
+    "purescript-console": "^3.0.0",
+    "purescript-eff": "^3.1.0",
+    "purescript-react": "^3.0.0",
+    "purescript-react-dom": "^3.0.0"
   }
 }

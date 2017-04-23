@@ -1,6 +1,6 @@
 module Example (example) where
 
-import Prelude (Unit, ($), (>>=), bind, unit, void)
+import Prelude
 
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (log)
