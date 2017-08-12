@@ -19,7 +19,7 @@ const plugins =
 ;
 
 module.exports = {
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
 
   devServer: {
     contentBase: '.',
@@ -47,10 +47,10 @@ module.exports = {
                 'bower_components/purescript-*/src/**/*.purs',
                 'src/**/*.purs'
               ],
-              bundle: false,
-              psc: 'psa',
-              watch: isWebpackDevServer || isWatch,
-              pscIde: false
+              pscArgs: {
+                sourceMaps: true
+              },
+              watch: isWebpackDevServer || isWatch
             }
           }
         ]
@@ -59,8 +59,14 @@ module.exports = {
   },
 
   resolve: {
-    modules: [ 'node_modules', 'bower_components' ],
-    extensions: [ '.purs', '.js']
+    modules: [
+      'node_modules',
+      'bower_components'
+    ],
+    extensions: [
+      '.purs',
+      '.js'
+    ]
   },
 
   plugins: [

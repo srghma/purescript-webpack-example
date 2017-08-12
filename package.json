@@ -20,10 +20,10 @@
     "start": "node bundle.js"
   },
   "dependencies": {
+    "create-react-class": "^15.6.0",
     "lodash.difference": "^4.5.0",
-    "purescript": "^0.11.0",
-    "purescript-psa": "^0.5.0",
-    "purs-loader": "^3.0.0-beta.1",
+    "purescript": "^0.11.6",
+    "purs-loader": "^3.1.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "webpack": "^2.0.0",
