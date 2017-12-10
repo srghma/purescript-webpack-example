@@ -15,9 +15,9 @@ npm start
 To test this in the browser with the webpack-dev-server.
 
 ```bash
-npm run psc-package:update
-
 npm install
+
+npm run psc-package:update
 
 # http://localhost:4008/
 npm run webpack:server
