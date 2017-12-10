@@ -17,7 +17,7 @@ bower install
 
 npm run webpack:dll
 
-npm run webpack:server
+npm run webpack-dev-server
 ```
 
 The example will then be available in browser at [http://localhost:4008/](http://localhost:4008/).

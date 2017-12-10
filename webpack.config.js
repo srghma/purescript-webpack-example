@@ -1,16 +1,30 @@
 'use strict';
 
-var webpack = require('webpack');
+const path = require('path');
+
+const webpack = require('webpack');
+
+const isWebpackDevServer = process.argv.filter(a => path.basename(a) === 'webpack-dev-server').length;
+
+const isWatch = process.argv.filter(a => a === '--watch').length
+
+const plugins =
+  isWebpackDevServer || !isWatch ? [] : [
+    function(){
+      this.plugin('done', function(stats){
+        process.stderr.write(stats.toString('errors-only'));
+      });
+    }
+  ]
+;
 
 module.exports = {
-  debug: true,
-
-  devtool: 'eval-source-map',
+  devtool: 'cheap-module-inline-source-map',
 
   devServer: {
     contentBase: '.',
     port: 4008,
-    stats: { colors: true }
+    stats: 'errors-only'
   },
 
   entry: './src/Example.purs',
@@ -22,29 +36,41 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.purs$/,
-        loader: 'purs-loader',
-        query: {
-          src: [ 'bower_components/purescript-*/src/**/*.purs', 'src/**/*.purs' ],
-          bundle: false,
-          psc: 'psa',
-          pscIde: true
-        }
+        use: [
+          {
+            loader: 'purs-loader',
+            options: {
+              src: [
+                'bower_components/purescript-*/src/**/*.purs',
+                'src/**/*.purs'
+              ],
+              bundle: false,
+              psc: 'psa',
+              watch: isWebpackDevServer || isWatch,
+              pscIde: true
+            }
+          }
+        ]
       },
     ]
   },
 
   resolve: {
-    modulesDirectories: [ 'node_modules', 'bower_components' ],
-    extensions: [ '', '.purs', '.js']
+    modules: [ 'node_modules', 'bower_components' ],
+    extensions: [ '.purs', '.js']
   },
 
   plugins: [
+    new webpack.LoaderOptionsPlugin({
+      debug: true
+    }),
+
     new webpack.DllReferencePlugin({
       context: __dirname,
       manifest: require('./vendor-manifest.json')
     })
-  ]
+  ].concat(plugins)
 };
