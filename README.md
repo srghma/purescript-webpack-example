@@ -64,8 +64,3 @@ to `psc: 'psc'` inside `webpack.config.js`. `psa` just provides clearer compilat
 messages compared to `psc`
 * `webpack` (on Nix, `nodePackages.webpack`)
 * `node` that comes from `nodejs`
-
-## Additional examples
-
- - [Fast rebuilds](https://github.com/ethul/purescript-webpack-example/tree/fast-rebuilds)
- - [Psc package](https://github.com/ethul/purescript-webpack-example/tree/psc-package)
