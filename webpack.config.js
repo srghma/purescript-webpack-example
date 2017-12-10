@@ -1,9 +1,25 @@
 'use strict';
 
-module.exports = {
-  debug: true,
+const path = require('path');
 
-  devtool: 'eval-source-map',
+const webpack = require('webpack');
+
+const isWebpackDevServer = process.argv.filter(a => path.basename(a) === 'webpack-dev-server').length;
+
+const isWatch = process.argv.filter(a => a === '--watch').length
+
+const plugins =
+  isWebpackDevServer || !isWatch ? [] : [
+    function(){
+      this.plugin('done', function(stats){
+        process.stderr.write(stats.toString('errors-only'));
+      });
+    }
+  ]
+;
+
+module.exports = {
+  devtool: 'cheap-module-inline-source-map',
 
   devServer: {
     contentBase: '.',
@@ -20,23 +36,34 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.purs$/,
-        loader: 'purs-loader',
-        query: {
-          src: [ 'src/Example/**/*.purs' ],
-          bundle: false,
-          psc: 'psa',
-          pscIde: false,
-          pscPackage: true
-        }
+        use: [
+          {
+            loader: 'purs-loader',
+            options: {
+              src: [
+                'src/**/*.purs'
+              ],
+              psc: 'psa',
+              pscPackage: true,
+              watch: isWebpackDevServer || isWatch,
+            }
+          }
+        ]
       },
     ]
   },
 
   resolve: {
-    modulesDirectories: [ 'node_modules', 'bower_components' ],
-    extensions: [ '', '.purs', '.js']
-  }
+    modules: [ 'node_modules' ],
+    extensions: [ '.purs', '.js']
+  },
+
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      debug: true
+    })
+  ].concat(plugins)
 };
