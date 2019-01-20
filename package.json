@@ -21,7 +21,7 @@
   "dependencies": {
     "create-react-class": "^15.6.2",
     "glob": "^7.1.2",
-    "purescript": "^0.11.0",
+    "purescript": "^0.12.0",
     "purescript-psa": "^0.5.0",
     "purs-loader": "^3.0.0",
     "react": "^16.0.0",

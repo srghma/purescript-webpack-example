@@ -2,30 +2,30 @@ module Example (example) where
 
 import Prelude
 
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (log)
-import Control.Monad.Eff.Unsafe (unsafePerformEff)
+import Effect (Effect)
+import Effect.Console (log)
+import Effect.Unsafe (unsafePerformEffect)
 
-import DOM.Node.Types (Element)
+import Web.DOM.Internal.Types (Element)
 
-import React (createElement)
+import React as React
 
-import ReactDOM (render, renderToString)
+import ReactDOM as ReactDOM
 
 import Example.App (app)
 
 example :: Unit
-example = unsafePerformEff $ do
-  let appEl = createElement app unit []
+example = unsafePerformEffect $ do
+  let appEl = React.createLeafElement app { }
 
   if isServerSide
-     then void (log (renderToString appEl))
-     else void (getElementById "app" >>= render appEl)
+     then void (log (ReactDOM.renderToString appEl))
+     else void (getElementById "app" >>= ReactDOM.render appEl)
 
   hot
 
 foreign import isServerSide :: Boolean
 
-foreign import getElementById :: forall eff. String -> Eff eff Element
+foreign import getElementById :: String -> Effect Element
 
-foreign import hot :: forall eff. Eff eff Unit
+foreign import hot :: Effect Unit

@@ -1,23 +1,26 @@
 module Example.App (app) where
 
-import Prelude (Unit, (<$>), unit)
+import Prelude
 
-import React (ReactClass, createClass, createElement, getProps, spec)
+import React as React
 import React.DOM (div, text) as DOM
 
 import Example.Header (header)
 import Example.Body (body)
 import Example.Footer (footer)
 
-app :: ReactClass Unit
-app = createClass (spec unit render)
+app :: React.ReactClass { }
+app = React.component "App" component
   where
-  render this = render' <$> getProps this
+  component this =
+    pure { state: {}
+         , render: render <$> React.getProps this
+         }
     where
-    render' props =
+    render props =
       DOM.div []
-              [ createElement header unit []
-              , createElement body unit []
-              , createElement footer unit []
+              [ React.createLeafElement header { }
+              , React.createLeafElement body { }
+              , React.createLeafElement footer { }
               , DOM.text "a"
               ]

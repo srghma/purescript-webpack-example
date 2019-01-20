@@ -1,14 +1,20 @@
 module Example.Footer (footer) where
 
-import Prelude (Unit)
+import Prelude
 
-import React (ReactClass, ReactElement, createClassStateless)
+import React as React
 import React.DOM (footer, text) as DOM
 
-footer :: ReactClass Unit
-footer = createClassStateless render
+footer :: React.ReactClass { }
+footer = React.component "Footer" component
   where
-  render :: Unit -> ReactElement
-  render props = DOM.footer [] [ DOM.text footerText ]
+  component this =
+    pure { state: {}
+         , render: render <$> React.getProps this
+         }
+    where
+    render _ =
+      DOM.footer [ ]
+                 [ DOM.text footerText ]
 
 foreign import footerText :: String

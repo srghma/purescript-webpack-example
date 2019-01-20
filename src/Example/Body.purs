@@ -1,18 +1,22 @@
 module Example.Body (body) where
 
-import Prelude (Unit, unit)
+import Prelude
 
-import React (ReactClass, ReactElement, createClassStateless, createElement)
+import React as React
 import React.DOM (div, text) as DOM
 
 import Example.Body.Title (title)
 
-body :: ReactClass Unit
-body = createClassStateless render
+body :: React.ReactClass { }
+body = React.component "Body" component
   where
-  render :: Unit -> ReactElement
-  render props =
-    DOM.div []
-            [ createElement title unit []
-            , DOM.text "Body"
-            ]
+  component this =
+    pure { state: {}
+         , render: render <$> React.getProps this
+         }
+    where
+    render _ =
+      DOM.div [ ]
+              [ React.createLeafElement title { }
+              , DOM.text "Body"
+              ]
