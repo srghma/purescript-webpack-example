@@ -1,4 +1,4 @@
-module Example (example) where
+module Example (main) where
 
 import Prelude
 
@@ -20,8 +20,8 @@ import ReactDOM as ReactDOM
 
 import Example.App (app)
 
-example :: Unit
-example = unsafePerformEffect $ do
+main :: Effect Unit
+main = do
   let appEl = React.createLeafElement app {}
 
   if isServerSide
@@ -34,8 +34,4 @@ example = unsafePerformEffect $ do
         let element' = unsafePartial (fromJust element)
         ReactDOM.render appEl element'
 
-  hot
-
 foreign import isServerSide :: Boolean
-
-foreign import hot :: Effect Unit

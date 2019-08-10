@@ -29,7 +29,7 @@ module.exports = {
     stats: 'errors-only'
   },
 
-  entry: './src/Example.purs',
+  entry: './src/entrypoint.js',
 
   output: {
     path: path.resolve(__dirname, 'dist'),
