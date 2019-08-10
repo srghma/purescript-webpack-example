@@ -1,12 +1,10 @@
 module Example.Header (header) where
 
-import Prelude (Unit)
-
-import React (ReactClass, ReactElement, createClassStateless)
+import React (ReactClass, ReactElement, statelessComponent)
 import React.DOM (header, text) as DOM
 
-header :: ReactClass Unit
-header = createClassStateless render
+header :: ReactClass (Record ())
+header = statelessComponent render
   where
-  render :: Unit -> ReactElement
+  render :: Record () -> ReactElement
   render props = DOM.header [] [ DOM.text "header" ]

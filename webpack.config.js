@@ -44,13 +44,11 @@ module.exports = {
             loader: 'purs-loader',
             options: {
               src: [
-                'bower_components/purescript-*/src/**/*.purs',
                 'src/**/*.purs'
               ],
-              bundle: false,
-              psc: 'psa',
+              spago: true,
               watch: isWebpackDevServer || isWatch,
-              pscIde: false
+              pscIde: true
             }
           }
         ]
@@ -59,7 +57,7 @@ module.exports = {
   },
 
   resolve: {
-    modules: [ 'node_modules', 'bower_components' ],
+    modules: [ 'node_modules' ],
     extensions: [ '.purs', '.js']
   },
 
