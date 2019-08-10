@@ -1,9 +1,8 @@
 module Example.Body (body) where
 
-import Prelude (unit)
-
 import React (ReactClass, ReactElement, statelessComponent, createLeafElement)
-import React.DOM (div, text) as DOM
+import React.DOM (div, img, text) as DOM
+import React.DOM.Props (src) as DOM
 
 import Example.Body.Title (title)
 
@@ -15,4 +14,7 @@ body = statelessComponent render
     DOM.div []
             [ createLeafElement title {}
             , DOM.text "Body"
+            , DOM.img [ DOM.src logo ]
             ]
+
+foreign import logo :: String
