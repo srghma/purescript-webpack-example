@@ -2,6 +2,8 @@
 
 const path = require('path');
 
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const webpack = require('webpack');
 
 const isWebpackDevServer = process.argv.some(a => path.basename(a) === 'webpack-dev-server');
@@ -22,7 +24,7 @@ module.exports = {
   devtool: 'eval-source-map',
 
   devServer: {
-    contentBase: '.',
+    contentBase: path.resolve(__dirname, 'dist'),
     port: 4008,
     stats: 'errors-only'
   },
@@ -30,8 +32,7 @@ module.exports = {
   entry: './src/Example.purs',
 
   output: {
-    path: __dirname,
-    pathinfo: true,
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
 
@@ -64,6 +65,10 @@ module.exports = {
   plugins: [
     new webpack.LoaderOptionsPlugin({
       debug: true
+    }),
+    new HtmlWebpackPlugin({
+      title: 'purescript-webpack-example',
+      template: 'index.html'
     })
   ].concat(plugins)
 };
