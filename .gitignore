@@ -6,3 +6,6 @@ tmp/
 output/
 bundle.js
 bundle.js.map
+.spago/
+.gcroots/
+dist/

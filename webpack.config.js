@@ -2,6 +2,8 @@
 
 const path = require('path');
 
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const webpack = require('webpack');
 
 const isWebpackDevServer = process.argv.some(a => path.basename(a) === 'webpack-dev-server');
@@ -22,16 +24,15 @@ module.exports = {
   devtool: 'eval-source-map',
 
   devServer: {
-    contentBase: '.',
+    contentBase: path.resolve(__dirname, 'dist'),
     port: 4008,
     stats: 'errors-only'
   },
 
-  entry: './src/Example.purs',
+  entry: './src/entrypoint.js',
 
   output: {
-    path: __dirname,
-    pathinfo: true,
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
 
@@ -44,28 +45,41 @@ module.exports = {
             loader: 'purs-loader',
             options: {
               src: [
-                'bower_components/purescript-*/src/**/*.purs',
                 'src/**/*.purs'
               ],
-              bundle: false,
-              psc: 'psa',
+              spago: true,
               watch: isWebpackDevServer || isWatch,
-              pscIde: false
+              pscIde: true
             }
           }
         ]
+      },
+      {
+        test: /\.(png|jpg|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            },
+          },
+        ],
       },
     ]
   },
 
   resolve: {
-    modules: [ 'node_modules', 'bower_components' ],
+    modules: [ 'node_modules' ],
     extensions: [ '.purs', '.js']
   },
 
   plugins: [
     new webpack.LoaderOptionsPlugin({
       debug: true
+    }),
+    new HtmlWebpackPlugin({
+      title: 'purescript-webpack-example',
+      template: 'index.html'
     })
   ].concat(plugins)
 };

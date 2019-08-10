@@ -1,31 +1,36 @@
-module Example (example) where
+module Example (main) where
 
 import Prelude
 
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (log)
-import Control.Monad.Eff.Unsafe (unsafePerformEff)
+import Effect (Effect)
+import Effect.Console (log)
 
-import DOM.Node.Types (Element)
+import Data.Maybe (fromJust)
 
-import React (createElement)
+import Web.HTML.HTMLDocument (toNonElementParentNode) as DOM
+import Web.DOM.NonElementParentNode (getElementById) as DOM
+import Web.HTML (window) as DOM
+import Web.HTML.Window (document) as DOM
 
-import ReactDOM (render, renderToString)
+import Partial.Unsafe (unsafePartial)
+
+import React as React
+import ReactDOM as ReactDOM
 
 import Example.App (app)
 
-example :: Unit
-example = unsafePerformEff $ do
-  let appEl = createElement app unit []
+main :: Effect Unit
+main = do
+  let appEl = React.createLeafElement app {}
 
   if isServerSide
-     then void (log (renderToString appEl))
-     else void (getElementById "app" >>= render appEl)
-
-  hot
+     then void (log (ReactDOM.renderToString appEl))
+     else void do
+        window <- DOM.window
+        document <- DOM.document window
+        let node = DOM.toNonElementParentNode document
+        element <- DOM.getElementById "app" node
+        let element' = unsafePartial (fromJust element)
+        ReactDOM.render appEl element'
 
 foreign import isServerSide :: Boolean
-
-foreign import getElementById :: forall eff. String -> Eff eff Element
-
-foreign import hot :: forall eff. Eff eff Unit

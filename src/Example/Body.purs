@@ -1,18 +1,20 @@
 module Example.Body (body) where
 
-import Prelude (Unit, unit)
-
-import React (ReactClass, ReactElement, createClassStateless, createElement)
-import React.DOM (div, text) as DOM
+import React (ReactClass, ReactElement, statelessComponent, createLeafElement)
+import React.DOM (div, img, text) as DOM
+import React.DOM.Props (src) as DOM
 
 import Example.Body.Title (title)
 
-body :: ReactClass Unit
-body = createClassStateless render
+body :: ReactClass (Record ())
+body = statelessComponent render
   where
-  render :: Unit -> ReactElement
+  render :: Record () -> ReactElement
   render props =
     DOM.div []
-            [ createElement title unit []
+            [ createLeafElement title {}
             , DOM.text "Body"
+            , DOM.img [ DOM.src logo ]
             ]
+
+foreign import logo :: String
