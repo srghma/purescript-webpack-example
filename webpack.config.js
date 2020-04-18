@@ -42,13 +42,20 @@ module.exports = {
         test: /\.purs$/,
         use: [
           {
-            loader: 'purs-loader',
+            loader: path.resolve(__dirname, 'spago-loader', 'purs-loader'),
             options: {
-              psc: 'psa',
-              spago: true,
+              compiler: 'psa',
               watch: isWebpackDevServer || isWatch,
-              // pscIde: true
             }
+          }
+        ]
+      },
+      {
+        test: /\.js$/,
+        include: [path.resolve(__dirname, 'output')], // only files from `spago output`
+        use: [
+          {
+            loader: path.resolve(__dirname, 'spago-loader', 'foreign-spago-js-loader'),
           }
         ]
       },
