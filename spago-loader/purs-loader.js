@@ -4,12 +4,10 @@ const fs = require('fs')
 const validateOptions = require('schema-utils')
 const path = require('path')
 
-const myutils = require('./utils')
-
 const schema = {
   "additionalProperties": false,
   "properties": {
-    "compiler": {
+    "spagoAbsoluteOutputDir": {
       "type": "string"
     },
     "watch": {
@@ -17,6 +15,14 @@ const schema = {
     },
   },
   "type": "object"
+}
+
+function matchModule(str) {
+  const srcModuleRegex = /(?:^|\n)module\s+([\w\.]+)/i
+
+  const matches = str.match(srcModuleRegex)
+
+  return matches && matches[1]
 }
 
 // TLDR: converts `.purs` paths to `.spago/.../xxx.js` paths
@@ -37,20 +43,18 @@ module.exports = async function spagoLoader(source) {
     baseDataPath: 'options',
   })
 
-  const spagoRelaviteOutputPath = await myutils.getSpagoRelaviteOutputPath()
-
   // console.log('')
-  // console.log('spagoRelaviteOutputPath', spagoRelaviteOutputPath)
+  // console.log('spagoAbsoluteOutputDir', spagoAbsoluteOutputDir)
 
   // console.log('this_', this_)
   // console.log('this_.resourcePath', this_.resourcePath)
   // console.log('source', source)
 
-  const psModuleName = myutils.matchModule(source)
+  const psModuleName = matchModule(source)
 
   // console.log('psModuleName', psModuleName)
 
-  const psModuleJsPath = path.join(rootContext, spagoRelaviteOutputPath, psModuleName, 'index.js')
+  const psModuleJsPath = path.join(options.spagoAbsoluteOutputDir, psModuleName, 'index.js')
 
   // console.log('psModuleJsPath', psModuleJsPath)
 
@@ -67,7 +71,7 @@ module.exports = async function spagoLoader(source) {
     const psModuleJsSource_ =
       psModuleJsSource
       .replace(requireRE, (_match, moduleName) => {
-        const absolutePsCompiledDepPath = path.join(rootContext, spagoRelaviteOutputPath, moduleName, 'index.js')
+        const absolutePsCompiledDepPath = path.join(options.spagoAbsoluteOutputDir, moduleName, 'index.js')
         return `require("${jsStringEscape(absolutePsCompiledDepPath)}")`
       })
       .replace(foreignRE, () => {

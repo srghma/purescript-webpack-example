@@ -6,9 +6,8 @@ const path = require('path')
 
 const myutils = require('./utils')
 
-
 // TLDR: converts `.spago/.../xxx.js` foreign paths back to original based on `externs.json`
-
+//
 // e.g. in file /home/srghma/projects/purescript-webpack-example/output/Example.Body
 //
 // replaces
@@ -35,8 +34,8 @@ module.exports = async function spagoLoader(source) {
 
   // console.log('this_', this_)
 
-  console.log('')
-  console.log('this_.resourcePath', this_.resourcePath)
+  // console.log('')
+  // console.log('this_.resourcePath', this_.resourcePath)
   const foreignRE = /require\(['"]\.\/foreign(?:\.js)?['"]\)/g;
 
   const source_ = source.replace(foreignRE, (match) => {

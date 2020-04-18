@@ -44,8 +44,8 @@ module.exports = {
           {
             loader: path.resolve(__dirname, 'spago-loader', 'purs-loader'),
             options: {
-              compiler: 'psa',
               watch: isWebpackDevServer || isWatch,
+              spagoAbsoluteOutputDir: path.resolve(__dirname, 'output'),
             }
           }
         ]
