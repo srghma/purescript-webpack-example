@@ -44,12 +44,10 @@ module.exports = {
           {
             loader: 'purs-loader',
             options: {
-              src: [
-                'src/**/*.purs'
-              ],
+              psc: 'psa',
               spago: true,
               watch: isWebpackDevServer || isWatch,
-              pscIde: true
+              // pscIde: true
             }
           }
         ]

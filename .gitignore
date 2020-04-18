@@ -9,3 +9,4 @@ bundle.js.map
 .spago/
 .gcroots/
 dist/
+.psc-ide-port
