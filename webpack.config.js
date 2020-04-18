@@ -1,24 +1,5 @@
-'use strict';
-
 const path = require('path');
-
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
 const webpack = require('webpack');
-
-const isWebpackDevServer = process.argv.some(a => path.basename(a) === 'webpack-dev-server');
-
-const isWatch = process.argv.some(a => a === '--watch');
-
-const plugins =
-  isWebpackDevServer || !isWatch ? [] : [
-    function(){
-      this.plugin('done', function(stats){
-        process.stderr.write(stats.toString('errors-only'));
-      });
-    }
-  ]
-;
 
 module.exports = {
   devtool: 'eval-source-map',
@@ -38,27 +19,29 @@ module.exports = {
 
   module: {
     rules: [
+      // import `src/MyFile.purs`, return `output/MyFile/index.js`
       {
         test: /\.purs$/,
         use: [
           {
-            loader: path.resolve(__dirname, 'spago-loader', 'purs-loader'),
+            loader: 'webpack-spago-loader/purs-loader',
             options: {
-              watch: isWebpackDevServer || isWatch,
               spagoAbsoluteOutputDir: path.resolve(__dirname, 'output'),
             }
           }
         ]
       },
+      // change `var $foreign = require("./foreign.js");` to `var $foreign = require("src/MyFile/index.js");`
       {
         test: /\.js$/,
-        include: [path.resolve(__dirname, 'output')], // only files from `spago output`
+        include: [path.resolve(__dirname, 'output')], // process only files from `spago output`
         use: [
           {
-            loader: path.resolve(__dirname, 'spago-loader', 'foreign-spago-js-loader'),
+            loader: 'webpack-spago-loader/foreign-spago-js-loader',
           }
         ]
       },
+      // works with images files
       {
         test: /\.(png|jpg|gif)$/i,
         use: [
@@ -77,14 +60,4 @@ module.exports = {
     modules: [ 'node_modules' ],
     extensions: [ '.purs', '.js']
   },
-
-  plugins: [
-    new webpack.LoaderOptionsPlugin({
-      debug: true
-    }),
-    new HtmlWebpackPlugin({
-      title: 'purescript-webpack-example',
-      template: 'index.html'
-    })
-  ].concat(plugins)
 };
